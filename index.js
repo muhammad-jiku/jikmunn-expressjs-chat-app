@@ -11,6 +11,22 @@ const port = process.env.PORT || 4000;
 dotenv.config();
 app.use(express.json());
 
+// database connection with mongoose
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.DB_AUTHOR}:${process.env.DB_PASSWORD}@cluster0.pzzsrxw.mongodb.net/?retryWrites=true&w=majority`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => {
+    console.log('DB connected!!');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 // displaying simple message
 app.get('/', (req, res) => {
   res.send('Welcome here!');
