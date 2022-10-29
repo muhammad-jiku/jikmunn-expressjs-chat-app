@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const userHandler = require('./routes/userHandler');
 
 // app initialization
 const app = express();
@@ -12,20 +13,22 @@ dotenv.config();
 app.use(express.json());
 
 // database connection with mongoose
+const uri = `mongodb+srv://${process.env.DB_AUTHOR}:${process.env.DB_PASSWORD}@cluster0.pzzsrxw.mongodb.net/${process.env.DB_NAME2}?retryWrites=true&w=majority`;
+
 mongoose
-  .connect(
-    `mongodb+srv://${process.env.DB_AUTHOR}:${process.env.DB_PASSWORD}@cluster0.pzzsrxw.mongodb.net/?retryWrites=true&w=majority`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log('DB connected!!');
   })
   .catch((err) => {
     console.log(err);
   });
+
+// application routes
+app.use('/user', userHandler);
 
 // displaying simple message
 app.get('/', (req, res) => {
