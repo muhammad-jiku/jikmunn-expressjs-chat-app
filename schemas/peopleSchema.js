@@ -1,17 +1,20 @@
 // dependeci
 const mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema(
+const peopleSchema = mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
-    },
-    username: {
-      type: String,
-      required: true,
+      trim: true,
     },
     email: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true,
+    },
+    mobile: {
       type: String,
       required: true,
     },
@@ -19,9 +22,13 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
+    avatar: {
+      type: String,
+    },
+    role: {
+      type: String,
+      enum: ['admin', 'user'],
+      default: 'user',
     },
   },
   {
@@ -29,4 +36,4 @@ const userSchema = mongoose.Schema(
   }
 );
 
-module.exports = userSchema;
+module.exports = peopleSchema;
