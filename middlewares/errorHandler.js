@@ -8,9 +8,10 @@ const notFoundHandler = (req, res, next) => {
 
 // default error handler
 const errorHandler = (err, req, res, next) => {
-  res.render('error', {
-    title: 'Error Page',
-  });
+  // sending data as variable
+  res.locals.title = 'Error Page';
+  res.locals.message = 'There is something went wrong!';
+  res.render('error');
 };
 
 module.exports = {
