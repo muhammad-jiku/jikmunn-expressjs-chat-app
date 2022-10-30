@@ -1,8 +1,11 @@
 // dependencies
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 const userHandler = require('./routes/userHandler');
+const { notFoundHandler, errorHandler } = require('./middlewares/errorHandler');
 
 // app initialization
 const app = express();
@@ -13,7 +16,7 @@ dotenv.config();
 app.use(express.json());
 
 // database connection with mongoose
-const uri = `mongodb+srv://${process.env.DB_AUTHOR}:${process.env.DB_PASSWORD}@cluster0.pzzsrxw.mongodb.net/${process.env.DB_NAME2}?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_AUTHOR}:${process.env.DB_PASSWORD}@cluster0.pzzsrxw.mongodb.net/?retryWrites=true&w=majority`;
 
 mongoose
   .connect(uri, {
@@ -27,13 +30,26 @@ mongoose
     console.log(err);
   });
 
-// application routes
-app.use('/user', userHandler);
+// middleware
+app.use(express.json());
 
-// displaying simple message
-app.get('/', (req, res) => {
-  res.send('Welcome here!');
-});
+// set view engine
+app.set('view engine', 'ejs');
+
+// set static folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// parse cookies
+app.use(cookieParser(process.env.COOKIE_SECRET));
+
+// routing setup
+// app.use('/user', userHandler);
+
+// 404 not found handler
+app.use(notFoundHandler);
+
+// common error handler
+app.use(errorHandler);
 
 // listening to the port
 app.listen(port, () => {
