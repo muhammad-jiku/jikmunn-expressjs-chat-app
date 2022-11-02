@@ -1,4 +1,5 @@
 // dependencies
+const multer = require('multer');
 const createError = require('http-errors');
 
 const uploader = (
