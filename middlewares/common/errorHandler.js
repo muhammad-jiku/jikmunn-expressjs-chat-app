@@ -1,5 +1,4 @@
 // dependecies
-// require('dotenv').config()
 const createError = require('http-errors');
 
 // 404 error handler
