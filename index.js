@@ -6,7 +6,10 @@ const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 
 // import files
-const { notFoundHandler, errorHandler } = require('./middlewares/errorHandler');
+const {
+  notFoundHandler,
+  errorHandler,
+} = require('./middlewares/common/errorHandler');
 const signInRouter = require('./routes/signInRouter');
 const userRouter = require('./routes/userRouter');
 const inboxRouter = require('./routes/inboxRouter');
@@ -18,9 +21,10 @@ const port = process.env.PORT || 4000;
 // middleware
 dotenv.config();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // database connection with mongoose
-const uri = `mongodb+srv://${process.env.DB_AUTHOR}:${process.env.DB_PASSWORD}@cluster0.pzzsrxw.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_AUTHOR}:${process.env.DB_PASSWORD}@cluster0.pzzsrxw.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
 mongoose
   .connect(uri, {

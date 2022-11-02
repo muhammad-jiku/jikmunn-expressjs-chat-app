@@ -22,6 +22,7 @@ const errorHandler = (err, req, res, next) => {
     });
   } else {
     // json response
+    console.log(err);
     res.json(res.locals.error);
   }
 };
