@@ -2,7 +2,7 @@
 const express = require('express');
 
 // importing files
-const { getUsers } = require('../controllers/userController');
+const { getUsers, addUser } = require('../controllers/userController');
 const decorateHtmlResHandler = require('../middlewares/common/decorateHtmlResHandler');
 const avatarUpload = require('../middlewares/users/avatarUpload');
 const {
@@ -16,7 +16,13 @@ const router = express.Router();
 // sign in page
 router.get('/', decorateHtmlResHandler('Users'), getUsers);
 
-// add user's avatar
-router.post('/', avatarUpload, addUserValidators, addUserValidationHandler);
+// add user
+router.post(
+  '/',
+  avatarUpload,
+  addUserValidators,
+  addUserValidationHandler,
+  addUser
+);
 
 module.exports = router;
