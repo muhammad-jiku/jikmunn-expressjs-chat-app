@@ -12,14 +12,13 @@
             type="text"
             name="username"
             placeholder="enter mobile or email"
-             value="<%= data.username %>"
+            value="<%= data.username %>"
           />
-          
-            <% if (errors.username) { %>
+          <% if (errors.username) { %>
             <p class="error show"><%= errors.username.msg %></p>
           <% } %>
           <input type="password" name="password" placeholder="enter password" />
-            <% if (errors.password) { %>
+          <% if (errors.password) { %>
             <p class="error show"><%= errors.password.msg %></p>
           <% } %>
 
