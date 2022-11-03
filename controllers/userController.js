@@ -1,11 +1,13 @@
-// dependencies
+// external imports
 const bcrypt = require('bcrypt');
+const { unlink } = require('fs');
+const path = require('path');
 
-// importing files
+// internal imports
 const People = require('../models/People');
 
 // get users page
-const getUsers = async (req, res, next) => {
+async function getUsers(req, res, next) {
   try {
     const users = await People.find();
     res.render('users', {
@@ -14,10 +16,10 @@ const getUsers = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-};
+}
 
 // add user
-const addUser = async (req, res, next) => {
+async function addUser(req, res, next) {
   let newUser;
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -28,7 +30,7 @@ const addUser = async (req, res, next) => {
       password: hashedPassword,
     });
   } else {
-    newUser = new People({
+    newUser = new User({
       ...req.body,
       password: hashedPassword,
     });
@@ -39,7 +41,6 @@ const addUser = async (req, res, next) => {
     const result = await newUser.save();
     res.status(200).json({
       message: 'User was added successfully!',
-      data: result,
     });
   } catch (err) {
     res.status(500).json({
@@ -50,10 +51,10 @@ const addUser = async (req, res, next) => {
       },
     });
   }
-};
+}
 
 // remove user
-const removeUser = async (req, res, next) => {
+async function removeUser(req, res, next) {
   try {
     const user = await People.findByIdAndDelete({
       _id: req.params.id,
@@ -81,7 +82,7 @@ const removeUser = async (req, res, next) => {
       },
     });
   }
-};
+}
 
 module.exports = {
   getUsers,

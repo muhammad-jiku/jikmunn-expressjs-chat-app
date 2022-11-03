@@ -1,12 +1,12 @@
 // importing files
 const uploader = require('../../utilities/singleFileUploader');
 
-const avatarUpload = (req, res, next) => {
+function avatarUpload(req, res, next) {
   const upload = uploader(
     'avatars',
     ['image/jpeg', 'image/jpg', 'image/png'],
     5000000,
-    'Only .jpg, .jpeg, and .png files are supported'
+    'Only .jpg, jpeg or .png format allowed!'
   );
 
   // call the middleware function
@@ -23,6 +23,6 @@ const avatarUpload = (req, res, next) => {
       next();
     }
   });
-};
+}
 
 module.exports = avatarUpload;

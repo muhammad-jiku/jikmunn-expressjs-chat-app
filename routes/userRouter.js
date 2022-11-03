@@ -1,11 +1,12 @@
-// dependencies
+// external imports
 const express = require('express');
+const { check } = require('express-validator');
 
-// importing files
+// internal imports
 const {
   getUsers,
-  addUser,
   removeUser,
+  addUser,
 } = require('../controllers/userController');
 const decorateHtmlResHandler = require('../middlewares/common/decorateHtmlResHandler');
 const avatarUpload = require('../middlewares/users/avatarUpload');
@@ -14,10 +15,9 @@ const {
   addUserValidationHandler,
 } = require('../middlewares/users/userValidator');
 
-// defining router
 const router = express.Router();
 
-// sign in page
+// users page
 router.get('/', decorateHtmlResHandler('Users'), getUsers);
 
 // add user
@@ -30,6 +30,6 @@ router.post(
 );
 
 // remove user
-router.post('/:id', removeUser);
+router.delete('/:id', removeUser);
 
 module.exports = router;
