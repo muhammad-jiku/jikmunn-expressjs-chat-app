@@ -69,7 +69,14 @@ const signIn = async (req, res, next) => {
   }
 };
 
+// do sign-out
+function signOut(req, res) {
+  res.clearCookie(process.env.COOKIE_NAME);
+  res.send('logged out');
+}
+
 module.exports = {
   getSignIn,
   signIn,
+  signOut,
 };

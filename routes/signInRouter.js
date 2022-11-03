@@ -2,7 +2,11 @@
 const express = require('express');
 
 // importing files
-const { getSignIn, signIn } = require('../controllers/signInController');
+const {
+  getSignIn,
+  signIn,
+  signOut,
+} = require('../controllers/signInController');
 const decorateHtmlResHandler = require('../middlewares/common/decorateHtmlResHandler');
 const {
   doLoginValidators,
@@ -26,5 +30,8 @@ router.post(
   doLoginValidationHandler,
   signIn
 );
+
+// sign-out
+router.delete('/', signOut);
 
 module.exports = router;

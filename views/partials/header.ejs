@@ -14,9 +14,32 @@
   </head>
   <body>
     <div class="menu">
+      <% if (loggedInUser && loggedInUser.username) { %>
       <div class="menu-item"><a href="/inbox">Inbox</a></div>
       <div class="menu-item"><a href="/users">Users</a></div>
-      <div class="menu-item"><a href="/">Login</a></div>
+      <div class="menu-item"><a href="#" onclick="signOut()">Sign Out</a></div>
+      <% } else { %>
+      <div class="menu-item"><a href="/inbox">Inbox</a></div>
+      <div class="menu-item"><a href="/users">Users</a></div>
+      <div class="menu-item"><a href="/">Sign In</a></div>
+      <% } %>
     </div>
+    <script>
+      // toast
+      const signOutToast = Toastify({
+        text: 'You are being signed out...',
+        duration: 1000,
+      });
+
+      function signOut() {
+        fetch('/', {
+          method: 'DELETE',
+        });
+        signOutToast.showToast();
+        setTimeout(() => {
+          window.location.replace('/');
+        }, 1000);
+      }
+    </script>
   </body>
 </html>
