@@ -17,8 +17,11 @@ const {
 
 const router = express.Router();
 
+// set page title
+const page_title = 'Users';
+
 // users page
-router.get('/', decorateHtmlResHandler('Users'), getUsers);
+router.get('/', decorateHtmlResHandler(page_title), getUsers);
 
 // add user
 router.post(

@@ -8,7 +8,10 @@ const decorateHtmlResHandler = require('../middlewares/common/decorateHtmlResHan
 // defining router
 const router = express.Router();
 
+// set page title
+const page_title = 'Inbox';
+
 // sign in page
-router.get('/', decorateHtmlResHandler('Inbox'), getInbox);
+router.get('/', decorateHtmlResHandler(page_title), getInbox);
 
 module.exports = router;
