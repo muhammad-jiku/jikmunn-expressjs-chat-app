@@ -2,7 +2,11 @@
 const express = require('express');
 
 // importing files
-const { getUsers, addUser } = require('../controllers/userController');
+const {
+  getUsers,
+  addUser,
+  removeUser,
+} = require('../controllers/userController');
 const decorateHtmlResHandler = require('../middlewares/common/decorateHtmlResHandler');
 const avatarUpload = require('../middlewares/users/avatarUpload');
 const {
@@ -24,5 +28,8 @@ router.post(
   addUserValidationHandler,
   addUser
 );
+
+// remove user
+router.post('/:id', removeUser);
 
 module.exports = router;
