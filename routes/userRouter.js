@@ -8,7 +8,10 @@ const {
   removeUser,
   addUser,
 } = require('../controllers/userController');
-const { checkSignIn } = require('../middlewares/common/checkSignIn');
+const {
+  checkSignIn,
+  requireRole,
+} = require('../middlewares/common/checkSignIn');
 const decorateHtmlResHandler = require('../middlewares/common/decorateHtmlResHandler');
 const avatarUpload = require('../middlewares/users/avatarUpload');
 const {
@@ -22,12 +25,19 @@ const router = express.Router();
 const page_title = 'Users';
 
 // users page
-router.get('/', decorateHtmlResHandler(page_title), checkSignIn, getUsers);
+router.get(
+  '/',
+  decorateHtmlResHandler(page_title),
+  checkSignIn,
+  requireRole(['admin']),
+  getUsers
+);
 
 // add user
 router.post(
   '/',
   checkSignIn,
+  requireRole(['admin']),
   avatarUpload,
   addUserValidators,
   addUserValidationHandler,
@@ -35,6 +45,6 @@ router.post(
 );
 
 // remove user
-router.delete('/:id', removeUser);
+router.delete('/:id', checkSignIn, requireRole(['admin']), removeUser);
 
 module.exports = router;
