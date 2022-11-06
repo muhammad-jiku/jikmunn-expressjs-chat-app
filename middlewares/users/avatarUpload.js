@@ -1,4 +1,4 @@
-// importing files
+// internal imports
 const uploader = require('../../utilities/singleFileUploader');
 
 function avatarUpload(req, res, next) {

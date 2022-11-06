@@ -1,7 +1,7 @@
-// dependencies
+// external imports
 const express = require('express');
 
-// importing files
+// internal imports
 const {
   getInbox,
   searchUser,

@@ -1,4 +1,4 @@
-// dependecies
+// external imports
 const createError = require('http-errors');
 
 // 404 error handler

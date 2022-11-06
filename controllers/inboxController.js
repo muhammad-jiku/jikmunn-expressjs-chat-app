@@ -1,5 +1,6 @@
 // external imports
 const createError = require('http-errors');
+
 // internal imports
 const People = require('../models/People');
 const Conversation = require('../models/Conversation');

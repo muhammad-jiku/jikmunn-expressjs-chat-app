@@ -1,4 +1,4 @@
-// dependency
+// external imports
 const mongoose = require('mongoose');
 
 const peopleSchema = mongoose.Schema(

@@ -1,4 +1,4 @@
-// dependencies
+// external imports
 const express = require('express');
 const mongoose = require('mongoose');
 const http = require('http');
@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 const moment = require('moment');
 const cookieParser = require('cookie-parser');
 
-// import files
+// internal imports
 const {
   notFoundHandler,
   errorHandler,
